@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --cor-primaria-1:#241623;
+    --cor-primaria-2:#D0CD94;
+    --cor-primaria-3:#3C787E;
+    --cor-primaria-4:#C7EF00;
+    --cor-primaria-5:#D56F3E;
+
+    --cor-secundaria-1: #fff;
+    --cor-secundaria-2: #1d1d1d;
+}
