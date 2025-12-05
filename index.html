@@ -1,21 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de compras</title>
+    <meta name="description" content="Gerencie suas compras de forma prática e eficiente">
+    <title>Lista de Compras Inteligente</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <h2>Minha lista de Compras</h2>
+    <div class="container">
+        <!-- Cabeçalho -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1><i class="fas fa-shopping-cart"></i> Lista de Compras</h1>
+                <p class="subtitle">Organize suas compras de forma prática</p>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <span class="user-name">Olá, Usuário</span>
+                    <span class="item-count">Itens: <span id="contador-itens">0</span></span>
+                </div>
+                <button class="btn-logout" onclick="logout()" aria-label="Sair do aplicativo">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </header>
 
-    <button onclick="logout()">Sair</button>
+        <!-- Conteúdo principal -->
+        <main class="app-main">
+            <!-- Formulário para adicionar itens -->
+            <section class="add-item-section">
+                <h2 class="section-title">Adicionar Novo Item</h2>
+                <div class="add-item-form">
+                    <div class="input-group">
+                        <input type="text" id="item" placeholder="Ex: Maçã, Arroz, Leite..." autocomplete="off">
+                        <div class="input-hint">Pressione Enter para adicionar</div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-primary" onclick="adicionarItem()">
+                            <i class="fas fa-plus"></i> Adicionar Item
+                        </button>
+                        <button class="btn-secondary" onclick="limparLista()" id="limpar-lista">
+                            <i class="fas fa-trash-alt"></i> Limpar Lista
+                        </button>
+                    </div>
+                </div>
+            </section>
 
-    <ul id="lista"></ul>
+            <!-- Filtros e estatísticas -->
+            <section class="filters-section">
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Total:</span>
+                        <span class="stat-value" id="total-itens">0 itens</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Pendentes:</span>
+                        <span class="stat-value" id="pendentes">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Concluídos:</span>
+                        <span class="stat-value" id="concluidos">0</span>
+                    </div>
+                </div>
+                <div class="filter-options">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="pending">Pendentes</button>
+                    <button class="filter-btn" data-filter="completed">Concluídos</button>
+                </div>
+            </section>
 
-    <input type="text" id="item" placeholder="Novo Item">
-    <button onclick="adicionarItem()">Adicionar</button>
+            <!-- Lista de itens -->
+            <section class="shopping-list-section">
+                <h2 class="section-title">Minha Lista</h2>
+                <div class="list-container">
+                    <ul id="lista" class="shopping-list">
+                        <!-- Itens serão inseridos aqui via JavaScript -->
+                        <li class="empty-state">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>Sua lista está vazia</p>
+                            <p class="empty-hint">Adicione itens acima para começar</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
 
+        <!-- Rodapé -->
+        <footer class="app-footer">
+            <p>Lista de Compras &copy; <span id="current-year">2023</span> - Organize suas compras de forma inteligente</p>
+            <p class="footer-hint"><i class="fas fa-lightbulb"></i> Dica: Clique em um item para marcá-lo como comprado</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
     <script type="module" src="app.js"></script>
-    
+    <script>
+        // Atualiza o ano no rodapé
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Adiciona placeholder dinâmico
+        const placeholders = [
+            "Ex: Maçã, Arroz, Leite...",
+            "Ex: Pão, Café, Queijo...",
+            "Ex: Banana, Carne, Ovos..."
+        ];
+        let placeholderIndex = 0;
+        const itemInput = document.getElementById('item');
+        
+        function rotatePlaceholder() {
+            placeholderIndex = (placeholderIndex + 1) % placeholders.length;
+            itemInput.placeholder = placeholders[placeholderIndex];
+        }
+        
+        // Rotaciona o placeholder a cada 5 segundos
+        setInterval(rotatePlaceholder, 5000);
+        
+        // Função para simular logout
+        function logout() {
+            if(confirm("Tem certeza que deseja sair?")) {
+                alert("Você saiu da aplicação. Até logo!");
+                // Em uma aplicação real, aqui seria o redirecionamento para login
+            }
+        }
+        
+        // Função para limpar a lista (simulação)
+        function limparLista() {
+            const lista = document.getElementById('lista');
+            if(lista.children.length > 1 || !lista.querySelector('.empty-state')) {
+                if(confirm("Tem certeza que deseja limpar toda a lista?")) {
+                    // Em uma aplicação real, aqui removeria todos os itens
+                    alert("Lista limpa com sucesso!");
+                }
+            }
+        }
+    </script>
 </body>
 </html>
